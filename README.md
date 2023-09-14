@@ -1,4 +1,7 @@
 # PokeClassic modded by ecopsychologer
+
+Thank you danenders for creating this amazing game and making the source code available!
+
 ## Change Log
 Start the game with more money (new_game.c - NewGameInitData)
 
@@ -6,7 +9,7 @@ Can use HM's without pokemon learning them
 
 Dynamic Wild Pokemon Levels (https://www.pokecommunity.com/showpost.php?p=10100138) (wild_encounter.c - ChooseWildMonLevel)
 
-Made Partner Pikachu Legendary and changed default moveset to be stronger (base_stats.h - SPECIES_PIKACHU_PARTNER) (level_up_learnsets.h - sPikachuPartnerLevelUpLearnset)
+Made Partner Pikachu stronger and changed default moveset to be stronger (base_stats.h - SPECIES_PIKACHU_PARTNER) (level_up_learnsets.h - sPikachuPartnerLevelUpLearnset)
 
 Removed RTC error message on startup for non-rtc carts (main_menu.c - Task_MainMenuCheckBattery)
 
@@ -16,6 +19,19 @@ Trying to make berry trees grow instantly upon watering (berry.c - ObjectEventIn
 
 Trying to make berry trees infinite because I have no RTC in my cart (berry.c - RemoveBerryTree)
 
+Allow running indoors (bike.c - IsRunningDisallowed)
+
+Dynamically set trainer levels (modified the code from Diego Mertens) (battle_main.c - CreateNPCTrainerParty)
+
+Lower opposing trainer IV's (battle_main.c - CreateNPCTrainerParty -> MAX_PER_STAT_IVS)
+
+Add PC access from pokenav based on (https://github.com/pret/pokeemerald/wiki/Add-PC-Access-in-PokeNav)
+- changed max menu items in pokenav.h to accomodate largest menu (unnecessary now)
+- edit Task_WaitFadeAccessPC to fit this hack
+
+Enable dexnav from start
+
+changes to battle_config.h
 
 # Original Author's ReadMe
 

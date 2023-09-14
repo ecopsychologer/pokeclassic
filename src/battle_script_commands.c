@@ -3871,7 +3871,7 @@ static void Cmd_getexp(void)
     s32 i; // also used as stringId
     u8 holdEffect;
     s32 sentIn;
-    s32 viaExpShare = 0;
+    //s32 viaExpShare = 0;
     u32 *exp = &gBattleStruct->expValue;
 
     gBattlerFainted = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
@@ -3919,7 +3919,6 @@ static void Cmd_getexp(void)
                     #endif
                 else
                     holdEffect = ItemId_GetHoldEffect(item);
-
             }
             #if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
                 calculatedExp = gBaseStats[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 5;
@@ -3927,14 +3926,14 @@ static void Cmd_getexp(void)
                 calculatedExp = gBaseStats[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 7;
             #endif
 
-            #if B_SPLIT_EXP < GEN_6
+            #if B_SPLIT_EXP > GEN_6
                 if (gSaveBlock2Ptr->expShare) // exp share is turned on
                 {
                     *exp = SAFE_DIV(calculatedExp / 2, viaSentIn);
                     if (*exp == 0)
                         *exp = 1;
 
-                    viaExpShare = gSaveBlock1Ptr->playerPartyCount;
+                    //viaExpShare = gSaveBlock1Ptr->playerPartyCount;
                     gExpShareExp = calculatedExp / 2;
                     if (gExpShareExp == 0)
                         gExpShareExp = 1;

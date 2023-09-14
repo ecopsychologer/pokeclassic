@@ -12443,9 +12443,9 @@ const struct BaseStats gBaseStats[] =
 [SPECIES_PIKACHU_PARTNER] =
     {
         .baseHP        = 100,
-        .baseAttack    = 75,
+        .baseAttack    = 90,
         .baseDefense   = 90,
-        .baseSpeed     = 170,
+        .baseSpeed     = 180,
         .baseSpAttack  = 160,
         .baseSpDefense = 130,
         .type1 = TYPE_ELECTRIC,
