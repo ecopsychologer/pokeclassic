@@ -1,5 +1,9 @@
-# PokeClassic
-## Status: Version 1 released!
+## PokeClassic modded by ecopsychologer
+# Change Log
+Start the game with more money
+Can use HM's without pokemon learning them
+
+## Original Author's ReadMe
 
 PokeClassic is a recreation of Pokemon Yellow, recreated in the Pokemon Emerald engine. Revisit your classic adventures through Kanto with new features, questlines, and post game content!
 
