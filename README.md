@@ -1,8 +1,21 @@
 # PokeClassic modded by ecopsychologer
 ## Change Log
-Start the game with more money
+Start the game with more money (new_game.c - NewGameInitData)
 
 Can use HM's without pokemon learning them
+
+Dynamic Wild Pokemon Levels (https://www.pokecommunity.com/showpost.php?p=10100138) (wild_encounter.c - ChooseWildMonLevel)
+
+Made Partner Pikachu Legendary and changed default moveset to be stronger (base_stats.h - SPECIES_PIKACHU_PARTNER) (level_up_learnsets.h - sPikachuPartnerLevelUpLearnset)
+
+Removed RTC error message on startup for non-rtc carts (main_menu.c - Task_MainMenuCheckBattery)
+
+Added rare items to the PC for ease of gameplay (player_pc.c - sNewGamePCItems)
+
+Trying to make berry trees grow instantly upon watering (berry.c - ObjectEventInteractionWaterBerryTree)
+
+Trying to make berry trees infinite because I have no RTC in my cart (berry.c - RemoveBerryTree)
+
 
 # Original Author's ReadMe
 
