@@ -1,6 +1,7 @@
 # PokeClassic modded by ecopsychologer
 ## Change Log
 Start the game with more money
+
 Can use HM's without pokemon learning them
 
 # Original Author's ReadMe
