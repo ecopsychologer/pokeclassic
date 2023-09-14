@@ -1874,8 +1874,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 						fixedLVL = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
 	
     
-    min = fixedLVL-2;
-    max = fixedLVL+4;
+    min = fixedLVL+1;
+    max = fixedLVL+7;
     range = max - min + 1;
     rand = Random() % range;
 
