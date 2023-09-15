@@ -33,6 +33,8 @@ Enable dexnav from start
 
 changes to battle_config.h
 
+changed pokeball pricing (items.h - Pokeballs)
+
 # Original Author's ReadMe
 
 PokeClassic is a recreation of Pokemon Yellow, recreated in the Pokemon Emerald engine. Revisit your classic adventures through Kanto with new features, questlines, and post game content!
