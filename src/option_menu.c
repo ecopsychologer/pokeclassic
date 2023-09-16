@@ -522,28 +522,28 @@ static void Sound_DrawChoices(u8 selection)
 
 static u8 FollowerType_ProcessInput(u8 selection)
 {
-    if (FlagGet(FLAG_SYS_GAME_CLEAR) == TRUE)
-    {    
-        if (JOY_NEW(DPAD_RIGHT))
-        {
-            if (selection <= 1)
-                selection++;
-            else
-                selection = 0;
+/*    if (FlagGet(FLAG_SYS_GAME_CLEAR) == TRUE)
+    {*/    
+    if (JOY_NEW(DPAD_RIGHT))
+    {
+        if (selection <= 1)
+            selection++;
+        else
+            selection = 0;
 
-            sArrowPressed = TRUE;
-        }
-        if (JOY_NEW(DPAD_LEFT))
-        {
-            if (selection != 0)
-                selection--;
-            else
-                selection = 2;
-
-            sArrowPressed = TRUE;
-        }
-        return selection;
+        sArrowPressed = TRUE;
     }
+    if (JOY_NEW(DPAD_LEFT))
+    {
+        if (selection != 0)
+            selection--;
+        else
+            selection = 2;
+
+        sArrowPressed = TRUE;
+    }
+    return selection;
+/*    }
     else
     {    
         if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
@@ -553,7 +553,7 @@ static u8 FollowerType_ProcessInput(u8 selection)
         }
 
         return selection;
-    }
+    }*/
 }
 
 static void FollowerType_DrawChoices(u8 selection)

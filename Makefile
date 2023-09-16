@@ -36,10 +36,10 @@ else
 EXE :=
 endif
 
-TITLE       := POKEMON EMER
-GAME_CODE   := BPEE
+TITLE       := POKEMON CLSC
+GAME_CODE   := CLSC
 MAKER_CODE  := 01
-REVISION    := 0
+REVISION    := 1
 MODERN      ?= 0
 
 ifeq (modern,$(MAKECMDGOALS))
@@ -63,7 +63,7 @@ else
   CPP := $(PREFIX)cpp
 endif
 
-ROM_NAME := pokeemerald.gba
+ROM_NAME := pokeclassic.gba
 ELF_NAME := $(ROM_NAME:.gba=.elf)
 MAP_NAME := $(ROM_NAME:.gba=.map)
 OBJ_DIR_NAME := build/emerald
