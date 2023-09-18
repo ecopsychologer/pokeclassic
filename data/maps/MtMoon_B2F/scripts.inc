@@ -153,6 +153,12 @@ MtMoon_B2F_EventScript_DomeFossil::
 	additem ITEM_DOME_FOSSIL, 1
 	delay 10
 	closemessage
+	message MtMoon_B2F_Text_ObtainedHelixFossil
+	waitmessage
+	waitfanfare
+	additem ITEM_HELIX_FOSSIL, 1
+	delay 10
+	closemessage
 	applymovement LOCALID_MIGUEL, MtMoon_B2F_Movement_MiguelToHelixFossil
 	waitmovement 3
 	playfanfare MUS_RG_OBTAIN_KEY_ITEM
@@ -190,6 +196,12 @@ MtMoon_B2F_EventScript_HelixFossil::
 	waitmessage
 	waitfanfare
 	additem ITEM_HELIX_FOSSIL, 1
+	delay 10
+	closemessage
+	message MtMoon_B2F_Text_ObtainedDomeFossil
+	waitmessage
+	waitfanfare
+	additem ITEM_DOME_FOSSIL, 1
 	delay 10
 	closemessage
 	applymovement LOCALID_MIGUEL, MtMoon_B2F_Movement_MiguelToDomeFossil
