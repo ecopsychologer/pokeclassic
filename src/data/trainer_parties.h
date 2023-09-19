@@ -408,7 +408,7 @@ static const struct TrainerMonItemCustomMoves sParty_EliteFourLancePostgame[] = 
     {
         .iv = 255,
         .lvl = 65,
-        .species = SPECIES_CHARIZARD,
+        .species = SPECIES_DRAGONITE,
         .heldItem = ITEM_NONE,
         .moves = {MOVE_FLARE_BLITZ, MOVE_DRAGON_PULSE, MOVE_HYPER_BEAM, MOVE_THUNDER_PUNCH},
     },
@@ -7279,8 +7279,8 @@ static const struct TrainerMonNoItemCustomMoves sParty_LeaderBlainePostgame[] = 
     {
         .iv = 200,
         .lvl = 65,
-        .species = SPECIES_CHARIZARD,
-        .moves = {MOVE_INFERNO, MOVE_DRAGON_RUSH, MOVE_FOCUS_BLAST, MOVE_HONE_CLAWS},
+        .species = SPECIES_DRAGONITE,
+        .moves = {MOVE_INFERNO, MOVE_DRAGON_RUSH, MOVE_EMBER, MOVE_HONE_CLAWS},
     },
     {
         .iv = 200,
@@ -7563,7 +7563,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_CooltrainerRolando[] = {
     {
         .iv = 100,
         .lvl = 42,
-        .species = SPECIES_CHARIZARD,
+        .species = SPECIES_DRAGONITE,
         .moves = {MOVE_FLAMETHROWER, MOVE_WING_ATTACK, MOVE_SMOKESCREEN, MOVE_SCARY_FACE},
     },
 };
@@ -8155,9 +8155,9 @@ static const struct TrainerMonNoItemCustomMoves sParty_TitleMatchLiz[] = {
 static const struct TrainerMonNoItemCustomMoves sParty_TitleMatchSteve[] = {
     {
         .iv = 200,
-        .lvl = 65,
-        .species = SPECIES_CHARIZARD,
-        .moves = {MOVE_FIRE_BLAST, MOVE_AIR_SLASH, MOVE_ROOST, MOVE_SOLAR_BEAM},
+        .lvl = 60,
+        .species = SPECIES_DRAGONITE,
+        .moves = {MOVE_FIRE_BLAST, MOVE_AIR_SLASH, MOVE_ROOST, MOVE_EMBER},
     },
     {
         .iv = 200,
@@ -8273,7 +8273,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_TitleMatchBean[] = {
     {
         .iv = 200,
         .lvl = 65,
-        .species = SPECIES_CHARIZARD,
+        .species = SPECIES_TYPHLOSION,
         .moves = {MOVE_DRAGON_DANCE, MOVE_FLARE_BLITZ, MOVE_EARTHQUAKE, MOVE_THUNDER_PUNCH},
     },
     {
@@ -8330,7 +8330,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_TitleMatchChris[] = {
     {
         .iv = 200,
         .lvl = 65,
-        .species = SPECIES_CHARIZARD,
+        .species = SPECIES_DRAGONITE,
         .moves = {MOVE_ROOST, MOVE_AIR_SLASH, MOVE_FLAMETHROWER, MOVE_TWISTER},
     },
     {
@@ -8390,7 +8390,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_TitleMatchMike[] = {
     {
         .iv = 200,
         .lvl = 65,
-        .species = SPECIES_CHARIZARD,
+        .species = SPECIES_TYPHLOSION,
         .moves = {MOVE_DRAGON_DANCE, MOVE_FIRE_BLAST, MOVE_ROCK_SLIDE, MOVE_DRAGON_CLAW},
     },
     {

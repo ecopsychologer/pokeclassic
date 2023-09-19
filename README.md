@@ -37,6 +37,16 @@ changed pokeball pricing (items.h - Pokeballs)
 
 changed wild_encounter.c and battle_main.c to balance levels of wild and trainer pokemon 
 
+get both fossils in mt moon
+
+make all pokemon evolve by level (evolution.h)
+
+change level up moves (level_up_learnsets.h)
+
+changed more item prices (items.h)
+
+edit fr/lg starters' abilities (base_stats.h)
+
 # Original Author's ReadMe
 
 PokeClassic is a recreation of Pokemon Yellow, recreated in the Pokemon Emerald engine. Revisit your classic adventures through Kanto with new features, questlines, and post game content!
