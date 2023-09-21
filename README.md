@@ -47,6 +47,12 @@ changed more item prices (items.h)
 
 edit fr/lg starters' abilities (base_stats.h)
 
+make wild pokemon vary based on the first pokemon in the party (wild_encounter.c)
+
+edit exp gain speed (battle_script_commands.c - B_SCALED_EXP)
+
+maximize IV's whenever you use a pokecenter (script_pokemon_util.c - HealPlayerParty)
+
 # Original Author's ReadMe
 
 PokeClassic is a recreation of Pokemon Yellow, recreated in the Pokemon Emerald engine. Revisit your classic adventures through Kanto with new features, questlines, and post game content!
