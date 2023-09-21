@@ -2169,7 +2169,7 @@ struct Pokemon * GetFirstLiveMon(void) { // Return address of first conscious pa
   u8 i;
   for (i=0; i<PARTY_SIZE;i++) 
   {
-    if (gSaveBlock2Ptr->optionsFollowerType == (1) && (FlagGet(FLAG_SYS_GAME_CLEAR) == TRUE))
+    if (gSaveBlock2Ptr->optionsFollowerType == (1))
     {
         if (gPlayerParty[i].hp > 0 && !(gPlayerParty[i].box.isEgg || gPlayerParty[i].box.isBadEgg))
             return &gPlayerParty[i];
