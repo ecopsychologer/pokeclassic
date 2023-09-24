@@ -6,10 +6,12 @@ FuchsiaCity_MapScripts::
 FuchsiaCity_OnTransition:
 	call_if_eq VAR_FOSSIL_SELECTION, 2, FuchsiaCity_EventScript_SetOmanyteGfx
 	call_if_ne VAR_FOSSIL_SELECTION, 2, FuchsiaCity_EventScript_SetKabutoGfx
+	setflag FLAG_VISITED_FUCHSIA_CITY
 	call Common_EventScript_GetDayOrNight
 	end
 
 FuchsiaCity_OnResume:
+	setflag FLAG_VISITED_FUCHSIA_CITY
 	call Common_EventScript_GetDayOrNight
 	end
 

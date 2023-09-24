@@ -1,8 +1,8 @@
 .set LOCALID_ENGINEER, 1
 .set LOCALID_ROCKET, 11
 
-.set COINS_PRICE_50,  1000
-.set COINS_PRICE_500, 10000
+.set COINS_PRICE_50,  1
+.set COINS_PRICE_500, 1
 
 CeladonCity_GameCorner_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, GameCorner_OnLoad

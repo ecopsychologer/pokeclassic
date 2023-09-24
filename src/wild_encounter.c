@@ -273,29 +273,23 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon)
     u8 rand;
 
 	u8 fixedLVL = 0;
-	if (!(gSaveBlock2Ptr->expShare)) // if exp share is turned off, wild pokemon vary on average party level
-    {
-        if (GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) != SPECIES_NONE)
-            fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[1], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[2], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[3], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[4], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[5], MON_DATA_LEVEL)) / 6;
-            else if ((GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) != SPECIES_NONE))
-                fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[3], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[4], MON_DATA_LEVEL)) / 5;
-                else if ((GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) != SPECIES_NONE))
-                    fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[3], MON_DATA_LEVEL)) / 4;
-                    else if ((GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) != SPECIES_NONE))
-                        fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)) / 3;
-                        else if ((GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) != SPECIES_NONE))
-                            fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)) / 2;
-                            else if ((GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES) != SPECIES_NONE))
-                                fixedLVL = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
-        min = fixedLVL;
-        max = fixedLVL+4;
-    }
-    else // when expShare is on, pokemon vary on the first pokemon in the party
-    {
-        fixedLVL = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
-        min = fixedLVL-1;
-        max = fixedLVL+3;
-    }
+    if (GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) != SPECIES_NONE)
+        fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[1], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[2], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[3], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[4], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[5], MON_DATA_LEVEL)) / 6;
+        else if ((GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) != SPECIES_NONE))
+            fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[3], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[4], MON_DATA_LEVEL)) / 5;
+            else if ((GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) != SPECIES_NONE))
+                fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[3], MON_DATA_LEVEL)) / 4;
+                else if ((GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) != SPECIES_NONE))
+                    fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)) / 3;
+                    else if ((GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) != SPECIES_NONE))
+                        fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)) / 2;
+                        else if ((GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES) != SPECIES_NONE))
+                            fixedLVL = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
+
+    fixedLVL = (fixedLVL + 2*(GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)))/3; // weighted average of party level and first pokemon level
+    min = fixedLVL-1;
+    max = fixedLVL+3;
+    //}
     // Make sure minimum level is less than maximum level
 
     

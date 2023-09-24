@@ -38,6 +38,11 @@ SaffronCity_Dojo_OffenseMaster::
 	goto_if_eq VAR_RESULT, 0, SaffronCity_Dojo_EventScript_HitmonchanParty
 	goto_if_eq VAR_RESULT, 1, SaffronCity_Dojo_EventScript_HitmonchanPC
 	goto_if_eq VAR_RESULT, 2, SaffronCity_Dojo_EventScript_NoRoomForPokemon
+	setvar VAR_TEMP_1, SPECIES_HITMONLEE
+	givemon SPECIES_HITMONLEE, 25, ITEM_NONE
+	goto_if_eq VAR_RESULT, 0, SaffronCity_Dojo_EventScript_HitmonleeParty
+	goto_if_eq VAR_RESULT, 1, SaffronCity_Dojo_EventScript_HitmonleePC
+	goto_if_eq VAR_RESULT, 2, SaffronCity_Dojo_EventScript_NoRoomForPokemon
 	end
 
 SaffronCity_Dojo_Text_IAmTheOffenseMaster::
@@ -128,6 +133,11 @@ SaffronCity_Dojo_DefenseMaster::
 	givemon SPECIES_HITMONLEE, 25, ITEM_NONE
 	goto_if_eq VAR_RESULT, 0, SaffronCity_Dojo_EventScript_HitmonleeParty
 	goto_if_eq VAR_RESULT, 1, SaffronCity_Dojo_EventScript_HitmonleePC
+	goto_if_eq VAR_RESULT, 2, SaffronCity_Dojo_EventScript_NoRoomForPokemon
+	setvar VAR_TEMP_1, SPECIES_HITMONCHAN
+	givemon SPECIES_HITMONCHAN, 25, ITEM_NONE
+	goto_if_eq VAR_RESULT, 0, SaffronCity_Dojo_EventScript_HitmonchanParty
+	goto_if_eq VAR_RESULT, 1, SaffronCity_Dojo_EventScript_HitmonchanPC
 	goto_if_eq VAR_RESULT, 2, SaffronCity_Dojo_EventScript_NoRoomForPokemon
 	end
 
