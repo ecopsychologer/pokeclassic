@@ -8,6 +8,7 @@
 CinnabarIsland_Gym_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, CinnabarIsland_Gym_OnTransition
 	map_script MAP_SCRIPT_ON_LOAD, CinnabarIsland_Gym_OnLoad
+	map_script MAP_SCRIPT_ON_TRANSITION, CinnabarIsland_Gym_ResetRematchFlags
 	.byte 0
 
 CinnabarIsland_Gym_OnLoad::
@@ -34,6 +35,7 @@ CinnabarIsland_Gym_OnTransition::
 	end
 
 CinnabarIsland_Gym_ResetRematchFlags::
+	clearflag FLAG_DAILY_BLAINE_REMATCH
 	cleartrainerflag LEADER_REMATCH_BLAINE_ORIGINAL
 	cleartrainerflag LEADER_REMATCH_BLAINE_POSTGAME
 	return

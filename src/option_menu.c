@@ -28,7 +28,6 @@ enum
     TD_SOUND,
     TD_BUTTONMODE,
     TD_FOLLOWER,
-    TD_EXPCURVE,
 };
 
 // Menu items
@@ -40,7 +39,6 @@ enum
     MENUITEM_SOUND,
     MENUITEM_BUTTONMODE,
     MENUITEM_FOLLOWER,
-    MENUITEM_EXPCURVE,
     MENUITEM_CANCEL,
     MENUITEM_COUNT,
 };
@@ -58,7 +56,7 @@ enum
 #define YPOS_SOUND        (MENUITEM_SOUND * 16)
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FOLLOWER      (MENUITEM_FOLLOWER * 16)
-#define YPOS_EXPCURVE      (MENUITEM_EXPCURVE * 16)
+//#define YPOS_EXPCURVE      (MENUITEM_EXPCURVE * 16)
 
 
 // this file's functions
@@ -77,8 +75,8 @@ static u8   Sound_ProcessInput(u8 selection);
 static void Sound_DrawChoices(u8 selection);
 static u8   FollowerType_ProcessInput(u8 selection);
 static void FollowerType_DrawChoices(u8 selection);
-static u8   ExpCurve_ProcessInput(u8 selection);
-static void ExpCurve_DrawChoices(u8 selection);
+//static u8   ExpCurve_ProcessInput(u8 selection);
+//static void ExpCurve_DrawChoices(u8 selection);
 static u8   ButtonMode_ProcessInput(u8 selection);
 static void ButtonMode_DrawChoices(u8 selection);
 static void DrawTextOption(void);
@@ -603,7 +601,7 @@ static void FollowerType_DrawChoices(u8 selection)
     }*/
 }
 
-static u8 ExpCurve_ProcessInput(u8 selection)
+/*static u8 ExpCurve_ProcessInput(u8 selection)
 {
     if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
     {
@@ -624,7 +622,7 @@ static void ExpCurve_DrawChoices(u8 selection)
 
     DrawOptionMenuChoice(gText_BattleSceneOn, 104, YPOS_EXPCURVE, styles[0]);
     DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198), YPOS_EXPCURVE, styles[1]);
-}
+}*/
 
 static u8 ButtonMode_ProcessInput(u8 selection)
 {

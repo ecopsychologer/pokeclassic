@@ -2,6 +2,7 @@
 
 PewterCity_Gym_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, PewterCity_Gym_OnTransition
+	map_script MAP_SCRIPT_ON_TRANSITION, PewterCity_Gym_ResetRematchFlags
 	.byte 0
 
 PewterCity_Gym_OnTransition::
@@ -9,6 +10,7 @@ PewterCity_Gym_OnTransition::
 	end
 
 PewterCity_Gym_ResetRematchFlags::
+	clearflag FLAG_DAILY_BROCK_REMATCH
 	cleartrainerflag LEADER_REMATCH_BROCK_ORIGINAL
 	cleartrainerflag LEADER_REMATCH_BROCK_POSTGAME
 	return

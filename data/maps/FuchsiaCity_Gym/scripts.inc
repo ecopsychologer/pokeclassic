@@ -1,5 +1,6 @@
 FuchsiaCity_Gym_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, FuchsiaCity_Gym_OnTransition
+	map_script MAP_SCRIPT_ON_TRANSITION, FuchsiaCity_Gym_ResetRematchFlags
 	.byte 0
 
 FuchsiaCity_Gym_OnTransition::
@@ -7,6 +8,7 @@ FuchsiaCity_Gym_OnTransition::
 	end
 
 FuchsiaCity_Gym_ResetRematchFlags::
+	clearflag FLAG_DAILY_KOGA_REMATCH
 	cleartrainerflag LEADER_REMATCH_KOGA_ORIGINAL
 	cleartrainerflag LEADER_REMATCH_KOGA_POSTGAME
 	return

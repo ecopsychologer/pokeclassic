@@ -1,5 +1,6 @@
 CeruleanCity_Gym_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, CeruleanCity_Gym_OnTransition
+	map_script MAP_SCRIPT_ON_TRANSITION, CeruleanCity_Gym_ResetRematchFlags
 	.byte 0
 
 CeruleanCity_Gym_OnTransition::
@@ -7,6 +8,7 @@ CeruleanCity_Gym_OnTransition::
 	end
 
 CeruleanCity_Gym_ResetRematchFlags::
+	clearflag FLAG_DAILY_MISTY_REMATCH
 	cleartrainerflag LEADER_REMATCH_MISTY_ORIGINAL
 	cleartrainerflag LEADER_REMATCH_MISTY_POSTGAME
 	return
