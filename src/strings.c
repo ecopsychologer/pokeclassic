@@ -1553,6 +1553,7 @@ const u8 gText_Follower[] = _("Follower");
 const u8 gText_FollowerPika[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Partner");
 const u8 gText_FollowerAny[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Any");
 const u8 gText_FollowerNone[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}None");
+const u8 gText_ExpCurve[] = _("Exp Curve");
 const u8 gText_OptionMenuCancel[] = _("Cancel");
 const u8 gText_ButtonMode[] = _("Button mode");
 const u8 gText_TextSpeedSlow[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Slow");

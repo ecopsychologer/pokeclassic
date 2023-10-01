@@ -3870,6 +3870,9 @@ static void Cmd_getexp(void)
     u16 item;
     s32 i; // also used as stringId
     u8 holdEffect;
+    // create a variable fixedLVL to be the average party pokemon level
+    u8 fixedLVL = 0;
+    u8 maxLVL = 0;
     s32 sentIn;
     s32 viaExpShare = 0;
     u32 *exp = &gBattleStruct->expValue;
@@ -3901,6 +3904,7 @@ static void Cmd_getexp(void)
         {
             u32 calculatedExp;
             s32 viaSentIn;
+            u8 i;
 
             for (viaSentIn = 0, i = 0; i < PARTY_SIZE; i++)
             {
@@ -3930,7 +3934,7 @@ static void Cmd_getexp(void)
             #if B_SPLIT_EXP < GEN_6
                 if (gSaveBlock2Ptr->expShare) // exp share is turned on
                 {
-                    *exp = SAFE_DIV(calculatedExp / 2, viaSentIn);
+                    *exp = calculatedExp;
                     if (*exp == 0)
                         *exp = 1;
 
@@ -3941,7 +3945,7 @@ static void Cmd_getexp(void)
                 }
                 else
                 {
-                    *exp = SAFE_DIV(calculatedExp, viaSentIn);
+                    *exp = calculatedExp;
                     if (*exp == 0)
                         *exp = 1;
                     gExpShareExp = 0;
@@ -4022,8 +4026,43 @@ static void Cmd_getexp(void)
                         //       because of multiplying by scaling factor(the value would simply be larger than an u32 can hold). Hence u64 is needed.
                         u64 value = gBattleMoveDamage;
                         value *= sExperienceScalingFactors[(gBattleMons[gBattlerFainted].level * 2) + 10];
+
                         value /= sExperienceScalingFactors[gBattleMons[gBattlerFainted].level + GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) + 10];
+
+                        if (GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) != SPECIES_NONE)
+                            fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[1], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[2], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[3], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[4], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[5], MON_DATA_LEVEL)) / 6;
+                            else if ((GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) != SPECIES_NONE))
+                                fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[3], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[4], MON_DATA_LEVEL)) / 5;
+                                else if ((GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) != SPECIES_NONE))
+                                    fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[3], MON_DATA_LEVEL)) / 4;
+                                    else if ((GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) != SPECIES_NONE))
+                                        fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)) / 3;
+                                        else if ((GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) != SPECIES_NONE))
+                                            fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)) / 2;
+                                            else if ((GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES) != SPECIES_NONE))
+                                                fixedLVL = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
                         gBattleMoveDamage = value + 1;
+                        // find max pokemon level
+                        for(i = 0; i < gPlayerPartyCount; i++) // loop through the party
+                        {
+                            if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > maxLVL)) // make sure there is a pokemon
+                            {
+                                maxLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set max level
+                            }
+                        }
+                        if ((maxLVL - 2) >= fixedLVL)
+                        {
+                            gBattleMoveDamage = (gBattleMoveDamage * 80) / 100;
+                        }
+                        else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) > (maxLVL - 1))
+                        {
+                            gBattleMoveDamage = (gBattleMoveDamage * 30) / 100;
+                        }
+                        else
+                        {
+                            gBattleMoveDamage = gBattleMoveDamage * 3;
+                        }
+                        
                     }
                     #endif
 

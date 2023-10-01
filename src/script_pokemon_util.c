@@ -26,6 +26,14 @@
 
 static void CB2_ReturnFromChooseHalfParty(void);
 static void CB2_ReturnFromChooseBattleFrontierParty(void);
+/*
+void ChangeMonLevel(u8 level)
+{
+    SetBoxMonData(&gPlayerParty[gSpecialVar_0x8004].box, MON_DATA_LEVEL, level);
+
+    CalculateMonStats(&gPlayerParty[gSpecialVar_0x8004]);
+}
+*/
 
 void HealPlayerParty(void)
 {
