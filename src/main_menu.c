@@ -719,7 +719,7 @@ static void Task_WaitForSaveFileErrorWindow(u8 taskId)
     {
         ClearWindowTilemap(7);
         ClearMainMenuWindowTilemap(&sWindowTemplates_MainMenu[7]);
-        gTasks[taskId].func = Task_MainMenuCheckBattery;
+        gTasks[taskId].func = Task_DisplayMainMenu;
     }
 }
 
@@ -741,8 +741,9 @@ static void Task_MainMenuCheckBattery(u8 taskId)
         }
         else
         {
-            CreateMainMenuErrorWindow(gText_BatteryRunDry);
-            gTasks[taskId].func = Task_WaitForBatteryDryErrorWindow;
+            gTasks[taskId].func = Task_DisplayMainMenu;
+            /*CreateMainMenuErrorWindow(gText_BatteryRunDry);
+            gTasks[taskId].func = Task_WaitForBatteryDryErrorWindow;*/
         }
     }
 }

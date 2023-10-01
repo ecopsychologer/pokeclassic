@@ -40,11 +40,24 @@ void HealPlayerParty(void)
     u8 i, j;
     u8 ppBonuses;
     u8 arg[4];
+    u16 maxHP;
+    u8 max_iv[1];
+    max_iv[0] = MAX_PER_STAT_IVS;
+
 
     // restore HP.
     for(i = 0; i < gPlayerPartyCount; i++)
     {
-        u16 maxHP = GetMonData(&gPlayerParty[i], MON_DATA_MAX_HP);
+        SetBoxMonData(&gPlayerParty[i].box, MON_DATA_HP_IV, max_iv);
+        SetBoxMonData(&gPlayerParty[i].box, MON_DATA_ATK_IV, max_iv);
+        SetBoxMonData(&gPlayerParty[i].box, MON_DATA_SPATK_IV, max_iv);
+        SetBoxMonData(&gPlayerParty[i].box, MON_DATA_DEF_IV, max_iv);
+        SetBoxMonData(&gPlayerParty[i].box, MON_DATA_SPDEF_IV, max_iv);
+        SetBoxMonData(&gPlayerParty[i].box, MON_DATA_SPEED_IV, max_iv);
+
+        CalculateMonStats(&gPlayerParty[i]);
+
+        maxHP = GetMonData(&gPlayerParty[i], MON_DATA_MAX_HP);
         arg[0] = maxHP;
         arg[1] = maxHP >> 8;
         SetMonData(&gPlayerParty[i], MON_DATA_HP, arg);

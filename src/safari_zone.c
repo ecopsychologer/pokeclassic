@@ -57,8 +57,8 @@ void EnterSafariMode(void)
     IncrementGameStat(GAME_STAT_ENTERED_SAFARI_ZONE);
     SetSafariZoneFlag();
     ClearAllPokeblockFeeders();
-    gNumSafariBalls = 30;
-    sSafariZoneStepCounter = 500;
+    gNumSafariBalls = 240;
+    sSafariZoneStepCounter = 50000;
     sSafariZoneCaughtMons = 0;
     sSafariZonePkblkUses = 0;
 }
@@ -120,7 +120,7 @@ void CB2_EndSafariBattle(void)
 
 static void ClearPokeblockFeeder(u8 index)
 {
-    memset(&sPokeblockFeeders[index], 0, sizeof(struct PokeblockFeeder));
+    //memset(&sPokeblockFeeders[index], 0, sizeof(struct PokeblockFeeder));
 }
 
 static void ClearAllPokeblockFeeders(void)
@@ -232,9 +232,9 @@ static void DecrementFeederStepCounters(void)
     {
         if (sPokeblockFeeders[i].stepCounter != 0)
         {
-            sPokeblockFeeders[i].stepCounter--;
-            if (sPokeblockFeeders[i].stepCounter == 0)
-                ClearPokeblockFeeder(i);
+            //sPokeblockFeeders[i].stepCounter--;
+            //if (sPokeblockFeeders[i].stepCounter == 0)
+                //ClearPokeblockFeeder(i);
         }
     }
 }

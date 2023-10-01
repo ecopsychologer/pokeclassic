@@ -104,11 +104,8 @@ FuchsiaCity_SafariZone_Entrance_Text_PlayAnotherTime:
 
 FuchsiaCity_SafariZone_Entrance_EventScript_TryEnterSafariZone::
 	call FuchsiaCity_SafariZone_Entrance_EventScript_CheckHasRoomForPokemon
-	checkmoney 500
-	goto_if_eq VAR_RESULT, 0, FuchsiaCity_SafariZone_Entrance_EventScript_NotEnoughMoney
 	playse SE_SHOP
 	msgbox FuchsiaCity_SafariZone_Entrance_Text_ThatWillBe500Please, MSGBOX_DEFAULT
-	removemoney 500
 	updatemoneybox
 	msgbox FuchsiaCity_SafariZone_Entrance_Text_HereAreYourSafariBalls, MSGBOX_DEFAULT
 	playfanfare MUS_OBTAIN_ITEM
@@ -126,7 +123,7 @@ FuchsiaCity_SafariZone_Entrance_EventScript_TryEnterSafariZone::
 	end
 
 FuchsiaCity_SafariZone_Entrance_Text_ThatWillBe500Please:
-	.string "That will be ¥500, please.$"
+	.string "That will be ¥0, please.$"
 
 FuchsiaCity_SafariZone_Entrance_Text_HereAreYourSafariBalls:
 	.string "Here are your Safari Balls.$"

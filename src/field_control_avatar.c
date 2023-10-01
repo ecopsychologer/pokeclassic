@@ -36,6 +36,7 @@
 #include "constants/map_types.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
+#include "constants/items.h"
 #include "constants/metatile_behaviors.h"
 
 static EWRAM_DATA u8 sWildEncounterImmunitySteps = 0;
@@ -454,6 +455,8 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return EventScript_RegionMap;
     if (MetatileBehavior_IsRunningShoesManual(metatileBehavior) == TRUE)
         return EventScript_RunningShoesManual;
+     if (MetatileBehavior_IsPainting(metatileBehavior) == TRUE)
+        return EventScript_Painting;
     if (MetatileBehavior_IsPictureBookShelf(metatileBehavior) == TRUE)
         return EventScript_PictureBookShelf;
     if (MetatileBehavior_IsBookShelf(metatileBehavior) == TRUE)
@@ -515,7 +518,7 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
 
 static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
-    if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+   if ((FlagGet(FLAG_BADGE05_GET) == TRUE || PartyHasMonWithSurf() == TRUE || CheckBagHasItem(ITEM_HM03 ,1)) && IsPlayerFacingSurfableFishableWater() == TRUE)
         return EventScript_UseSurf;
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)
@@ -633,15 +636,30 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
         if (ShouldDoAideCall() == TRUE)
         {
             if (FlagGet(FLAG_AIDE_LOCATION_1) == TRUE)
-                ScriptContext1_SetupScript(MatchCall_EventScript_AideFlashReady);
+                {
+                    FlagClear(FLAG_HIDE_AIDE_ROUTE2);
+                    ScriptContext1_SetupScript(MatchCall_EventScript_AideFlashReady);  
+                }
             if (FlagGet(FLAG_AIDE_LOCATION_2) == TRUE)
-                ScriptContext1_SetupScript(MatchCall_EventScript_AideEverstoneReady);
+                {
+                    FlagClear(FLAG_HIDE_AIDE_ROUTE10);
+                    ScriptContext1_SetupScript(MatchCall_EventScript_AideEverstoneReady);
+                }
             if (FlagGet(FLAG_AIDE_LOCATION_3) == TRUE)
-                ScriptContext1_SetupScript(MatchCall_EventScript_AideItemfinderReady);
+                {
+                    FlagClear(FLAG_HIDE_AIDE_ROUTE11);
+                    ScriptContext1_SetupScript(MatchCall_EventScript_AideItemfinderReady);
+                }
             if (FlagGet(FLAG_AIDE_LOCATION_4) == TRUE)
-                ScriptContext1_SetupScript(MatchCall_EventScript_AideAmuletCoinReady);
+                {
+                    FlagClear(FLAG_HIDE_AIDE_ROUTE16);
+                    ScriptContext1_SetupScript(MatchCall_EventScript_AideAmuletCoinReady);
+                }
             if (FlagGet(FLAG_AIDE_LOCATION_5) == TRUE)
-                ScriptContext1_SetupScript(MatchCall_EventScript_AideExpShareReady);
+                {
+                    FlagClear(FLAG_HIDE_AIDE_ROUTE15);
+                    ScriptContext1_SetupScript(MatchCall_EventScript_AideExpShareReady);
+                }
             return TRUE;
         }
         if (ShouldDoLookerPostgameCall() == TRUE)

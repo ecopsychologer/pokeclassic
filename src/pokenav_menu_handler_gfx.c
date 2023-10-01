@@ -60,6 +60,7 @@ static u32 LoopedTask_ReturnToMainMenu(s32);
 static u32 LoopedTask_OpenConditionSearchMenu(s32);
 static u32 LoopedTask_ReturnToConditionMenu(s32);
 static u32 LoopedTask_SelectRibbonsNoWinners(s32);
+static u32 LoopedTask_CannotAccesPC(s32);
 static u32 LoopedTask_ReShowDescription(s32);
 static u32 LoopedTask_OpenPokenavFeature(s32);
 static void LoadPokenavOptionPalettes(void);
@@ -84,6 +85,7 @@ static void DestroyRematchBlueLightSprite(void);
 static void AddOptionDescriptionWindow(void);
 static void PrintCurrentOptionDescription(void);
 static void PrintNoRibbonWinners(void);
+static void PrintCannotAccessPC(void);
 static bool32 IsDma3ManagerBusyWithBgCopy_(void);
 static void CreateMovingBgDotsTask(void);
 static void DestroyMovingDotsBgTask(void);
@@ -149,6 +151,7 @@ static const LoopedTask sMenuHandlerLoopTaskFuncs[] =
     [POKENAV_MENU_FUNC_NO_RIBBON_WINNERS]     = LoopedTask_SelectRibbonsNoWinners,
     [POKENAV_MENU_FUNC_RESHOW_DESCRIPTION]    = LoopedTask_ReShowDescription,
     [POKENAV_MENU_FUNC_OPEN_FEATURE]          = LoopedTask_OpenPokenavFeature,
+    [POKENAV_MENU_FUNC_CANNOT_ACCESS_PC]      = LoopedTask_CannotAccesPC,
     [POKENAV_MENU_FUNC_OPEN_DEXNAV]           = LoopedTask_OpenPokenavFeature
 };
 
@@ -156,7 +159,7 @@ static const struct CompressedSpriteSheet sPokenavOptionsSpriteSheets[] =
 {
     {
         .data = gPokenavOptions_Gfx,
-        .size = 0x3800,
+        .size = 0x4200,
         .tag = GFXTAG_OPTIONS
     },
     {
@@ -185,14 +188,15 @@ static const u16 sOptionsLabelGfx_Condition[] = {0x040, PALTAG_OPTIONS_BLUE - PA
 static const u16 sOptionsLabelGfx_MatchCall[] = {0x060, PALTAG_OPTIONS_RED - PALTAG_OPTIONS_START};
 static const u16 sOptionsLabelGfx_Ribbons[]   = {0x080, PALTAG_OPTIONS_PINK - PALTAG_OPTIONS_START};
 static const u16 sOptionsLabelGfx_SwitchOff[] = {0x0A0, PALTAG_OPTIONS_BEIGE - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Party[]     = {0x0C0, PALTAG_OPTIONS_BLUE - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Search[]    = {0x0E0, PALTAG_OPTIONS_BLUE - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Cool[]      = {0x100, PALTAG_OPTIONS_RED - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Beauty[]    = {0x120, PALTAG_OPTIONS_BLUE - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Cute[]      = {0x140, PALTAG_OPTIONS_PINK - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Smart[]     = {0x160, PALTAG_OPTIONS_DEFAULT - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Tough[]     = {0x180, PALTAG_OPTIONS_DEFAULT - PALTAG_OPTIONS_START};
-static const u16 sOptionsLabelGfx_Cancel[]    = {0x1A0, PALTAG_OPTIONS_BEIGE - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_AccessPC[]  = {0x0C0, PALTAG_OPTIONS_BLUE - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Party[]     = {0x0E0, PALTAG_OPTIONS_BLUE - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Search[]    = {0x100, PALTAG_OPTIONS_BLUE - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Cool[]      = {0x120, PALTAG_OPTIONS_RED - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Beauty[]    = {0x140, PALTAG_OPTIONS_BLUE - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Cute[]      = {0x160, PALTAG_OPTIONS_PINK - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Smart[]     = {0x180, PALTAG_OPTIONS_DEFAULT - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Tough[]     = {0x1A0, PALTAG_OPTIONS_DEFAULT - PALTAG_OPTIONS_START};
+static const u16 sOptionsLabelGfx_Cancel[]    = {0x1C0, PALTAG_OPTIONS_BEIGE - PALTAG_OPTIONS_START};
 
 struct
 {
@@ -208,6 +212,7 @@ struct
         .gfx = {
             sOptionsLabelGfx_RegionMap,
             sOptionsLabelGfx_MatchCall,
+            sOptionsLabelGfx_DexNav,
             sOptionsLabelGfx_Condition,
             sOptionsLabelGfx_SwitchOff
         }
@@ -239,9 +244,10 @@ struct
     },
     [POKENAV_MENU_TYPE_CONDITION] =
     {
-        .yStart = 56,
+        .yStart = 42, /*modifed*/
         .deltaY = 20,
         .gfx = {
+            sOptionsLabelGfx_AccessPC,
             sOptionsLabelGfx_Party,
             sOptionsLabelGfx_Search,
             sOptionsLabelGfx_Cancel
@@ -281,6 +287,7 @@ static const u8 *const sPageDescriptions[] =
     [POKENAV_MENUITEM_CONDITION]               = gText_CheckPokemonInDetail,
     [POKENAV_MENUITEM_RIBBONS]                 = gText_CheckObtainedRibbons,
     [POKENAV_MENUITEM_SWITCH_OFF]              = gText_PutAwayPokenav,
+    [POKENAV_MENUITEM_CONDITION_ACCESS_PC]     = gText_Pokenav_Access_PC,
     [POKENAV_MENUITEM_CONDITION_PARTY]         = gText_CheckPartyPokemonInDetail,
     [POKENAV_MENUITEM_CONDITION_SEARCH]        = gText_CheckAllPokemonInDetail,
     [POKENAV_MENUITEM_CONDITION_CANCEL]        = gText_ReturnToPokenavMenu,
@@ -719,6 +726,22 @@ static u32 LoopedTask_ReturnToConditionMenu(s32 state)
         if (IsTaskActive_UpdateBgDotsPalette())
             return LT_PAUSE;
         InitMenuOptionGlow();
+        break;
+    }
+    return LT_FINISH;
+}
+
+static u32 LoopedTask_CannotAccesPC(s32 state)
+{
+    switch (state)
+    {
+    case 0:
+        PlaySE(SE_FAILURE);
+        PrintCannotAccessPC();
+        return LT_INC_AND_PAUSE;
+    case 1:
+        if (IsDma3ManagerBusyWithBgCopy())
+            return LT_PAUSE;
         break;
     }
     return LT_FINISH;
@@ -1288,6 +1311,15 @@ static void PrintNoRibbonWinners(void)
 {
     struct Pokenav_MenuGfx * gfx = GetSubstructPtr(POKENAV_SUBSTRUCT_MENU_GFX);
     const u8 * s = gText_NoRibbonWinners;
+    u32 width = GetStringWidth(FONT_NORMAL, s, -1);
+    FillWindowPixelBuffer(gfx->optionDescWindowId, PIXEL_FILL(6));
+    AddTextPrinterParameterized3(gfx->optionDescWindowId, FONT_NORMAL, (192 - width) / 2, 1, sOptionDescTextColors2, 0, s);
+}
+
+static void PrintCannotAccessPC(void)
+{
+    struct Pokenav_MenuGfx * gfx = GetSubstructPtr(POKENAV_SUBSTRUCT_MENU_GFX);
+    const u8 * s = gText_Pokenav_Cannot_Access_PC;
     u32 width = GetStringWidth(FONT_NORMAL, s, -1);
     FillWindowPixelBuffer(gfx->optionDescWindowId, PIXEL_FILL(6));
     AddTextPrinterParameterized3(gfx->optionDescWindowId, FONT_NORMAL, (192 - width) / 2, 1, sOptionDescTextColors2, 0, s);

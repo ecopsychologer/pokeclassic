@@ -1,8 +1,8 @@
 .set LOCALID_ENGINEER, 1
 .set LOCALID_ROCKET, 11
 
-.set COINS_PRICE_50,  1000
-.set COINS_PRICE_500, 10000
+.set COINS_PRICE_50,  1
+.set COINS_PRICE_500, 1
 
 CeladonCity_GameCorner_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, GameCorner_OnLoad
@@ -608,7 +608,6 @@ GameCorner_EventScript_Gentleman::
 	compare VAR_TEMP_1, (MAX_COINS + 1) - 20
 	goto_if_ge GameCorner_EventScript_GamblerNoRoomForCoins
 	addcoins 20
-	textcolor 3
 	msgbox GameCorner_Text_Received20CoinsFromMan
 	playse SE_SHOP
 	waitse

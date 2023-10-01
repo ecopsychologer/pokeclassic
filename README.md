@@ -67,14 +67,6 @@ fix hm's in the party menu to show the right hm by what's in the bag (party_menu
 
 fix the flag being set for visiting fuschia in fuschia's scripts.inc (flags in region_map.c)
 
-edit the function doling out exp to curve pokemon to more easily enable bringing pokemon up to similar levels within a party (battle_script_commands.c)
-
-began to create a function to change a pokemon's levels (script_pokemon_util.c)
-
-radically change the exp curve to rapidly bring pokemon up to the highest party pokemon's level, while allowing for a more standard feeling of the experience gain process when the party is balanced out
-
-modified the 
-
 # Original Author's ReadMe
 
 PokeClassic is a recreation of Pokemon Yellow, recreated in the Pokemon Emerald engine. Revisit your classic adventures through Kanto with new features, questlines, and post game content!
@@ -88,3 +80,5 @@ To compile this rom yourself, see [Pret's Installation Guide](https://github.com
 
 Otherwise, patch files will occasionaly be released here. These will be slower to release than pulling updates yourself. To patch this game, you will need to provide your own rom.
 
+## Credits
+Special thanks to  Hyo Oppa, Wolf, Solo993, Bushbugger, PokeMerp, Lunos, TheXaman, Ghoulslash, citrusbolt, asparaguseduardo, exposeed, surskitty, GriffinR, & the Pret Discord.

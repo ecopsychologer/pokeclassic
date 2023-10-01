@@ -66,6 +66,7 @@
 #include "constants/weather.h"
 #include "constants/metatile_labels.h"
 #include "palette.h"
+#include "event_data.h"
 #include "field_player_avatar.h"
 #include "constants/rgb.h"
 
@@ -1000,6 +1001,8 @@ static void PCTurnOnEffect_0(struct Task *task)
 static void PCTurnOnEffect_1(s16 isPcTurnedOn, s8 dx, s8 dy)
 {
     u16 tileId = 0;
+    if(gSysPcFromPokenav)
+        return;
     if (isPcTurnedOn)
     {
         if (gSpecialVar_0x8004 == PC_LOCATION_OTHER)
@@ -1028,6 +1031,10 @@ static void PCTurnOffEffect(void)
     s8 dy = 0;
     u16 tileId = 0;
     u8 playerDirection = GetPlayerFacingDirection();
+    if(gSysPcFromPokenav){
+        gSysPcFromPokenav = FALSE;
+        return;
+    }
     switch (playerDirection)
     {
     case DIR_NORTH:
@@ -1858,27 +1865,27 @@ u16 GetDeptStoreDefaultFloorChoice(void)
             break;
         case MAP_NUM(SILPH_CO_6F):
             sElevatorScroll = 1;
-            sElevatorCursorPos = 4;
+            sElevatorCursorPos = 5;
             break;
         case MAP_NUM(SILPH_CO_5F):
             sElevatorScroll = 2;
-            sElevatorCursorPos = 4;
+            sElevatorCursorPos = 6;
             break;
         case MAP_NUM(SILPH_CO_4F):
             sElevatorScroll = 3;
-            sElevatorCursorPos = 4;
+            sElevatorCursorPos = 7;
             break;
         case MAP_NUM(SILPH_CO_3F):
             sElevatorScroll = 4;
-            sElevatorCursorPos = 4;
+            sElevatorCursorPos = 8;
             break;
         case MAP_NUM(SILPH_CO_2F):
             sElevatorScroll = 5;
-            sElevatorCursorPos = 4;
+            sElevatorCursorPos = 9;
             break;
         case MAP_NUM(SILPH_CO_1F):
             sElevatorScroll = 5;
-            sElevatorCursorPos = 5;
+            sElevatorCursorPos = 10;
             break;
         }
     }
