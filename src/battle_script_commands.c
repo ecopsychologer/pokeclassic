@@ -3873,6 +3873,8 @@ static void Cmd_getexp(void)
     // create a variable fixedLVL to be the average party pokemon level
     u8 fixedLVL = 0;
     u8 maxLVL = 0;
+    u8 avgLVL = 0;
+    u8 minLVL = 100;
     s32 sentIn;
     //s32 viaExpShare = 0;
     u32 *exp = &gBattleStruct->expValue;
@@ -4041,13 +4043,17 @@ static void Cmd_getexp(void)
                                             else if ((GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES) != SPECIES_NONE))
                                                 fixedLVL = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
                         gBattleMoveDamage = value + 1;
-                        // find max pokemon level
+                        // find max, min, avg pokemon level
                         for(i = 0; i < gPlayerPartyCount; i++) // loop through the party
                         {
                             if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > maxLVL)) // make sure there is a pokemon
                             {
                                 maxLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set max level
+                            } else if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) < minLVL)) // make sure there is a pokemon
+                            {
+                                minLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set min level
                             }
+                            avgLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set average level
                         }
                         if (gSaveBlock2Ptr->optionsBattleStyle == 0) {
                             if ((maxLVL - fixedLVL) <= 2) {

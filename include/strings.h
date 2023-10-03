@@ -331,8 +331,6 @@ extern const u8 gText_FollowerPika[];
 extern const u8 gText_FollowerAny[];
 extern const u8 gText_FollowerNone[];
 
-extern const u8 gText_ExpCurve[];
-
 extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];
 

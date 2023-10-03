@@ -16,7 +16,6 @@
 #include "gba/m4a_internal.h"
 #include "constants/rgb.h"
 #include "event_data.h"
-#include "string_util.h"
 
 // Task data
 enum
@@ -57,7 +56,6 @@ enum
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FOLLOWER      (MENUITEM_FOLLOWER * 16)
 
-
 // this file's functions
 static void Task_OptionMenuFadeIn(u8 taskId);
 static void Task_OptionMenuProcessInput(u8 taskId);
@@ -74,8 +72,6 @@ static u8   Sound_ProcessInput(u8 selection);
 static void Sound_DrawChoices(u8 selection);
 static u8   FollowerType_ProcessInput(u8 selection);
 static void FollowerType_DrawChoices(u8 selection);
-//static u8   ExpCurve_ProcessInput(u8 selection);
-//static void ExpCurve_DrawChoices(u8 selection);
 static u8   ButtonMode_ProcessInput(u8 selection);
 static void ButtonMode_DrawChoices(u8 selection);
 static void DrawTextOption(void);
@@ -247,7 +243,6 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].data[TD_SOUND] = gSaveBlock2Ptr->optionsSound;
         gTasks[taskId].data[TD_BUTTONMODE] = gSaveBlock2Ptr->optionsButtonMode;
         gTasks[taskId].data[TD_FOLLOWER] = gSaveBlock2Ptr->optionsFollowerType;
-        //gTasks[taskId].data[TD_EXPCURVE] = gSaveBlock2Ptr->optionsExpCurve;
 
         TextSpeed_DrawChoices(gTasks[taskId].data[TD_TEXTSPEED]);
         BattleScene_DrawChoices(gTasks[taskId].data[TD_BATTLESCENE]);
@@ -255,7 +250,6 @@ void CB2_InitOptionMenu(void)
         Sound_DrawChoices(gTasks[taskId].data[TD_SOUND]);
         ButtonMode_DrawChoices(gTasks[taskId].data[TD_BUTTONMODE]);
         FollowerType_DrawChoices(gTasks[taskId].data[TD_FOLLOWER]);
-        //ExpCurve_DrawChoices(gTasks[taskId].data[TD_EXPCURVE]);
         HighlightOptionMenuItem(gTasks[taskId].data[TD_MENUSELECTION]);
 
         CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
@@ -371,7 +365,6 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsSound = gTasks[taskId].data[TD_SOUND];
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].data[TD_BUTTONMODE];
     gSaveBlock2Ptr->optionsFollowerType = gTasks[taskId].data[TD_FOLLOWER];
-    //gSaveBlock2Ptr->optionsExpCurve = gTasks[taskId].data[TD_EXPCURVE];
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -599,29 +592,6 @@ static void FollowerType_DrawChoices(u8 selection)
         DrawOptionMenuChoice(gText_FollowerNone, GetStringRightAlignXOffset(FONT_NORMAL, gText_FollowerNone, 198), YPOS_FOLLOWER, styles[2]);
     }*/
 }
-
-/*static u8 ExpCurve_ProcessInput(u8 selection)
-{
-    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
-    {
-        selection ^= 1;
-        sArrowPressed = TRUE;
-    }
-
-    return selection;
-}
-
-static void ExpCurve_DrawChoices(u8 selection)
-{
-    u8 styles[2];
-
-    styles[0] = 0;
-    styles[1] = 0;
-    styles[selection] = 1;
-
-    DrawOptionMenuChoice(gText_BattleSceneOn, 104, YPOS_EXPCURVE, styles[0]);
-    DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198), YPOS_EXPCURVE, styles[1]);
-}*/
 
 static u8 ButtonMode_ProcessInput(u8 selection)
 {
