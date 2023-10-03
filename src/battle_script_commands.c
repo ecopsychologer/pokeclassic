@@ -4049,17 +4049,20 @@ static void Cmd_getexp(void)
                                 maxLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set max level
                             }
                         }
-                        if ((maxLVL - 2) <= fixedLVL)
-                        {
-                            gBattleMoveDamage = (gBattleMoveDamage * 80) / 100;
-                        }
-                        else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 2))
-                        {
-                            gBattleMoveDamage = (gBattleMoveDamage * 30) / 100;
-                        }
-                        else
-                        {
-                            gBattleMoveDamage = (gBattleMoveDamage * 45) / 10;
+                        if (gSaveBlock2Ptr->optionsBattleStyle == 0) {
+                            if ((maxLVL - fixedLVL) <= 2) {
+                                gBattleMoveDamage = (gBattleMoveDamage * 95) / 100;
+                            } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 1)) {
+                                gBattleMoveDamage = (gBattleMoveDamage * 30) / 100;
+                            } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 2)) {
+                                gBattleMoveDamage = (gBattleMoveDamage * 90) / 100;
+                            } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 3)) {
+                                gBattleMoveDamage = (gBattleMoveDamage * 250) / 100;
+                            } else {
+                                gBattleMoveDamage = (gBattleMoveDamage * 45) / 10;
+                            }
+                        } else {
+                            gBattleMoveDamage = (gBattleMoveDamage * 95) / 100;
                         }
                         
                     }

@@ -1789,8 +1789,8 @@ void IncrementRematchStepCounter(void)
 static bool32 IsRematchStepCounterMaxed(void)
 {
     #ifndef FREE_MATCH_CALL
-    if (HasAtLeastFiveBadges() && gSaveBlock1Ptr->trainerRematchStepCounter >= STEP_COUNTER_MAX)
-        return TRUE;
+    if (HasAtLeastFiveBadges())
+        return TRUE; // step counter perma maxed after fifth badge
     else
         return FALSE;
     #else

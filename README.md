@@ -65,9 +65,13 @@ edit safari zone balls and steps
 
 fix hm's in the party menu to show the right hm by what's in the bag (party_menu.c - SetPartyMonFieldSelectionActions)
 
-fix the flag being set for visiting fuschia in fuschia's scripts.inc (flags in region_map.c)
+fix the flag being set for some gym rematches in their scripts.inc (flags in region_map.c)
 
 only get a match call from trainers who will rematch you (match_call.c)
+
+edit the exp curve and make it an option (battle_script_commands.c - Cmd_getexp) (global.h, new_game.c, option_menu.c, strings.c, and probably more)
+
+rework dynamic trainer pokemon level setting (battle_main.c)
 
 # Original Author's ReadMe
 

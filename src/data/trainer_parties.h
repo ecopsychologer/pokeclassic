@@ -484,7 +484,7 @@ static const struct TrainerMonItemCustomMoves sParty_SecretBattleOak[] = {
 //Rival Battles
 static const struct TrainerMonNoItemDefaultMoves sParty_RivalFirstBattle[] = {
     {
-    .iv = 0,
+    .iv = 1,
     .lvl = 5,
     .species = SPECIES_RIVAL_EEVEE,
     }

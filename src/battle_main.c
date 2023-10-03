@@ -1857,7 +1857,6 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 	u8 fixedLVL = 0;
     u8 maxLVL = 0;
     u8 min = 0;
-    u8 max = 0;
     u8 range = 0;
     u8 rand = 0;
 	
@@ -1882,9 +1881,34 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
         }
 
     }
-    range = 5;
+    range = gTrainers[trainerNum].partySize;
     i = 0;
-    min = maxLVL - 1;
+    /*
+    *
+    *case 1: if all pokemon are close in lvl, and the opponent has 2 or fewer pokemon
+    * 
+    * 
+    */
+
+    if (((maxLVL - fixedLVL) <= 2) && (range <= 2)) {
+        // all pokemon are close in lvl, and the opponent has 2 or fewer pokemon
+        min = maxLVL + 3;
+    } else if (((maxLVL - fixedLVL) <= 2) && (range <= 4)) {
+        // all pokemon are close in lvl, and the opponent has 4 or fewer pokemon
+        min = maxLVL + 2;
+    } else if ((maxLVL - fixedLVL) <= 2) {
+        // all pokemon are close in lvl
+        min = maxLVL + 1;
+    } else if (((maxLVL - fixedLVL) <= 5) && (range <= 4)) {
+        // all pokemon are somewhat close in lvl, and the opponent has 4 or fewer pokemon
+        min = maxLVL - 1;
+    } else if ((maxLVL - fixedLVL) <= 5) {
+        // all pokemon are somewhat close in lvl
+        min = maxLVL - 2;
+    } else {
+        min = (2 * maxLVL + fixedLVL) / 3;
+    }
+    
 
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -1933,7 +1957,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * (MAX_PER_STAT_IVS) / 255;
                 rand = Random() % range;
-                reallevel = min + rand;
+                reallevel = min + rand + (( i / 2 ) * 2 );
                 CreateMon(&party[i], partyData[i].species, reallevel, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
                 break;
             }
@@ -1947,7 +1971,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * (MAX_PER_STAT_IVS) / 255;
                 rand = Random() % range;
-                reallevel = min + rand;
+                reallevel = min + rand + (( i / 2 ) * 2 );
                 CreateMon(&party[i], partyData[i].species, reallevel, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
@@ -1967,7 +1991,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * (MAX_PER_STAT_IVS) / 255;
                 rand = Random() % range;
-                reallevel = min + rand;
+                reallevel = min + rand + (( i / 2 ) * 2 );
                 CreateMon(&party[i], partyData[i].species, reallevel, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
@@ -1983,7 +2007,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * (MAX_PER_STAT_IVS) / 255;
                 rand = Random() % range;
-                reallevel = min + rand;
+                reallevel = min + rand + (( i / 2 ) * 2 );
                 CreateMon(&party[i], partyData[i].species, reallevel, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
@@ -3039,7 +3063,7 @@ static void BattleStartClearSetData(void)
         gHitMarker |= HITMARKER_NO_ANIMATIONS;
     }
 
-    gBattleScripting.battleStyle = gSaveBlock2Ptr->optionsBattleStyle;
+    gBattleScripting.battleStyle = 0; //gSaveBlock2Ptr->optionsExpCurve;
 	gBattleScripting.expOnCatch = (B_EXP_CATCH >= GEN_6);
 	gBattleScripting.monCaught = FALSE;
 

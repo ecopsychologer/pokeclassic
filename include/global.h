@@ -511,7 +511,7 @@ struct SaveBlock2
     /*0x14*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST]
              u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
              u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
-             u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
+             u16 optionsBattleStyle:1; // changes exp curve, was OPTIONS_BATTLE_STYLE_[SHIFT/SET]
              u16 optionsBattleSceneOff:1; // whether battle animations are disabled
              u16 regionMapZoom:1; // whether the map is zoomed in
     /*0x18*/ struct Pokedex pokedex;
@@ -537,7 +537,6 @@ struct SaveBlock2
               u8 costumeId;
               u16 optionsFollowerType:3; //Follower Type: 0= Pikachu, 1=Any, 2=Off
               u16 expShare:1;
-              /*u16 optionsExpCurve:1;*/
               u16 surfMon;
 }; // sizeof=0xF2C
 

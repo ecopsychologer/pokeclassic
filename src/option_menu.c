@@ -56,7 +56,6 @@ enum
 #define YPOS_SOUND        (MENUITEM_SOUND * 16)
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FOLLOWER      (MENUITEM_FOLLOWER * 16)
-//#define YPOS_EXPCURVE      (MENUITEM_EXPCURVE * 16)
 
 
 // this file's functions
