@@ -267,51 +267,51 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
 
 static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon)
 {
-    u8 min;
-    u8 max;
-    u8 range;
-    u8 rand;
+    u8 range = gPlayerPartyCount;
+    u16 avgLVL = 0; // 16 bit int because max avg level is 100 so 600 total
+    u8 minLVL = 100;
+    u8 maxLVL = 0;
+    u8 min = 0;
+    u8 reallevel = 0;
+    u8 i;
+	
+    // find max, min, avg pokemon level
+    for (i = 0; i < gPlayerPartyCount; i++) { // loop through the party
+        if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > maxLVL)) { // make sure there is a pokemon
+            maxLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set max level
+        } else if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) < minLVL)) { // make sure there is a pokemon
+            minLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set min level
+        }
+        avgLVL += GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set average level
+    }
+    if (gPlayerPartyCount) { // just to be safe
+        avgLVL /= gPlayerPartyCount;
+    }
+    /*
+    if ((maxLVL - avgLVL) < (avgLVL - minLVL)) { // party avg lvl > median lvl
+        if ((maxLVL - avgLVL) <= 2) { // party within four levels of each other
+            min = maxLVL - 1;
+        } else {
+            min = (maxLVL + avgLVL) / 2;
+        }
+    } else { // party avg lvl <= median lvl
+        min = ((maxLVL * 2) + avgLVL) / 3;
+    } */
+    reallevel = maxLVL + 2 + (Random() % range);
 
-	u8 fixedLVL = 0;
-    if (GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) != SPECIES_NONE)
-        fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[1], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[2], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[3], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[4], MON_DATA_LEVEL) + GetMonData(&gPlayerParty[5], MON_DATA_LEVEL)) / 6;
-        else if ((GetMonData(&gPlayerParty[5], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) != SPECIES_NONE))
-            fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[3], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[4], MON_DATA_LEVEL)) / 5;
-            else if ((GetMonData(&gPlayerParty[4], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) != SPECIES_NONE))
-                fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[3], MON_DATA_LEVEL)) / 4;
-                else if ((GetMonData(&gPlayerParty[3], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) != SPECIES_NONE))
-                    fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[2], MON_DATA_LEVEL)) / 3;
-                    else if ((GetMonData(&gPlayerParty[2], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) != SPECIES_NONE))
-                        fixedLVL = (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)+GetMonData(&gPlayerParty[1], MON_DATA_LEVEL)) / 2;
-                        else if ((GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) == SPECIES_NONE) && (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES) != SPECIES_NONE))
-                            fixedLVL = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
-
-    fixedLVL = (fixedLVL + 2*(GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)))/3; // weighted average of party level and first pokemon level
-    min = fixedLVL-1;
-    max = fixedLVL+3;
-    //}
-    // Make sure minimum level is less than maximum level
-
-    
-	if (min <= 0)
-		min = 1;
-    range = max - min + 1;
-    rand = Random() % range;
-
+    if (((maxLVL - avgLVL) > 5) && ((GetMonData(&gPlayerParty[0], MON_DATA_LEVEL) < avgLVL))) {
+        reallevel = reallevel - (avgLVL - (GetMonData(&gPlayerParty[0], MON_DATA_LEVEL)));
+    }
     // check ability for max level mon
     if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
     {
         u16 ability = GetMonAbility(&gPlayerParty[0]);
-        if (ability == ABILITY_HUSTLE || ability == ABILITY_VITAL_SPIRIT || ability == ABILITY_PRESSURE)
-        {
+        if (ability == ABILITY_HUSTLE || ability == ABILITY_VITAL_SPIRIT || ability == ABILITY_PRESSURE) {
             if (Random() % 2 == 0)
-                return max;
-
-            if (rand != 0)
-                rand--;
+                return maxLVL + 7;
         }
     }
-    return min + rand;
+    return reallevel;
 }
 
 u16 GetCurrentMapWildMonHeaderId(void)

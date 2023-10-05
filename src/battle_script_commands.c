@@ -3925,7 +3925,7 @@ static void Cmd_getexp(void)
                     holdEffect = ItemId_GetHoldEffect(item);
             }
             #if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
-                calculatedExp = gBaseStats[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 6;
+                calculatedExp = gBaseStats[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 5;
             #else
                 calculatedExp = gBaseStats[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 7;
             #endif
@@ -3933,20 +3933,19 @@ static void Cmd_getexp(void)
             #if B_SPLIT_EXP > GEN_6
                 if (gSaveBlock2Ptr->expShare) // exp share is turned on
                 {
-                    *exp = SAFE_DIV(calculatedExp / 2, viaSentIn);
-                    if (*exp == 0)
-                        *exp = 1;
+                    *exp = (5 * calculatedExp) / 2;
+                    if (*exp < 2)
+                        *exp = 2;
 
                     //viaExpShare = gSaveBlock1Ptr->playerPartyCount;
                     gExpShareExp = calculatedExp / 2;
-                    if (gExpShareExp == 0)
-                        gExpShareExp = 1;
                 }
                 else
                 {
-                    *exp = SAFE_DIV(calculatedExp, viaSentIn);
-                    if (*exp == 0)
-                        *exp = 1;
+                    *exp = (5 * calculatedExp) / 2;
+                    if (*exp < 2)
+                        *exp = 2;
+
                     gExpShareExp = 0;
                 }
             #else
@@ -4005,7 +4004,7 @@ static void Cmd_getexp(void)
                     gBattleStruct->wildVictorySong++;
                 }
 
-                if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP) && !GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_IS_EGG))
+                if (!GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_IS_EGG))
                 {
                     if (gBattleStruct->sentInPokes & 1)
                         gBattleMoveDamage = *exp;
@@ -4063,18 +4062,18 @@ static void Cmd_getexp(void)
                     // apply xp curve
                     if (gSaveBlock2Ptr->optionsBattleStyle == 0) {
                         if ((maxLVL - fixedLVL) <= 2) {
-                            gBattleMoveDamage = (gBattleMoveDamage * 95) / 100;
+                            gBattleMoveDamage = (gBattleMoveDamage * 9) / 10;
                         } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 1)) {
-                            gBattleMoveDamage = (gBattleMoveDamage * 30) / 100;
+                            gBattleMoveDamage = (gBattleMoveDamage * 3) / 10;
                         } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 2)) {
-                            gBattleMoveDamage = (gBattleMoveDamage * 90) / 100;
+                            gBattleMoveDamage = (gBattleMoveDamage * 9) / 10;
                         } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 3)) {
-                            gBattleMoveDamage = (gBattleMoveDamage * 250) / 100;
+                            gBattleMoveDamage = (gBattleMoveDamage * 2);
                         } else {
-                            gBattleMoveDamage = (gBattleMoveDamage * 45) / 10;
+                            gBattleMoveDamage = gBattleMoveDamage * 3;
                         }
                     } else {
-                        gBattleMoveDamage = (gBattleMoveDamage * 95) / 100;
+                        gBattleMoveDamage = (gBattleMoveDamage * 5) / 2;
                     }
                     // get exp getter battlerId
                     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)

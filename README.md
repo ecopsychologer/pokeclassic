@@ -67,6 +67,12 @@ fix hm's in the party menu to show the right hm by what's in the bag (party_menu
 
 fix the flag being set for visiting fuschia in fuschia's scripts.inc (flags in region_map.c)
 
+redo the dynamic trainer and wild pokemon level allocations
+
+replace a setting with an exp curve enable (strings.c) (battle_script_commands.c)
+
+add a function in pokemon.c - CanMonLearnMove to add field moves to action list if a pokemon can learn them
+
 # Original Author's ReadMe
 
 PokeClassic is a recreation of Pokemon Yellow, recreated in the Pokemon Emerald engine. Revisit your classic adventures through Kanto with new features, questlines, and post game content!

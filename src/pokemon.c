@@ -2366,7 +2366,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
-    if (fixedIV < USE_RANDOM_IVS)
+    if (fixedIV > USE_RANDOM_IVS)
     {
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &fixedIV);
         SetBoxMonData(boxMon, MON_DATA_ATK_IV, &fixedIV);
@@ -6363,6 +6363,20 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
     }
 
     return numMoves;
+}
+
+u8 CanMonLearnMove(struct Pokemon *mon, u8 move) {
+    u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
+    u8 i;
+    if (species == SPECIES_EGG) {
+        return 0;
+    }
+    for (i = 0; i < MAX_LEVEL_UP_MOVES && gLevelUpLearnsets[species][i].move != LEVEL_UP_END; i++) {
+        if (move == gLevelUpLearnsets[species][i].move) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves)

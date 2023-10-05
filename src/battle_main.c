@@ -1857,29 +1857,30 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     u8 avgLVL = 0;
     u8 minLVL = 100;
     u8 maxLVL = 0;
+    u8 range = 3;
     u8 min = 0;
-    u8 max = 0;
-    u8 range = 0;
-    u8 rand = 0;
 	
     // find max, min, avg pokemon level
-    for(i = 0; i < gPlayerPartyCount; i++) // loop through the party
-    {
-        if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > maxLVL)) // make sure there is a pokemon
-        {
-            maxLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set max level
-        } else if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) < minLVL)) // make sure there is a pokemon
-        {
+    for (i = 0; i < gPlayerPartyCount; i++) { // loop through the party
+        if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > maxLVL)) { // make sure there is a pokemon
+            maxLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set max level 
+        }
+    }/* else if((GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE) && (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) < minLVL)) { // make sure there is a pokemon
             minLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set min level
         }
-        avgLVL = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // set average level
+        avgLVL += GetMonData(&gPlayerParty[i], MON_DATA_LEVEL); // add for average level
     }
-    fixedLVL = avgLVL;
-    min = fixedLVL+2;
-    max = fixedLVL+7;
-    range = gPlayerPartyCount;
-    if (min <=0)
-        min=1;
+    if (gPlayerPartyCount) { // just to be safe
+        avgLVL /= gPlayerPartyCount;
+    }
+    if ((maxLVL - minLVL) <= 4) { // party within four levels of each other
+            min = maxLVL + 1;
+    } else if ((maxLVL - avgLVL + 10) < (avgLVL - minLVL)) {
+        min = 
+    } else { // party avg lvl <= median lvl
+        min = ((maxLVL * 3) + avgLVL) / 4;
+    } */
+    min = maxLVL + 1;
 
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -1902,6 +1903,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
         {
             monsCount = gTrainers[trainerNum].partySize;
         }
+
+        range = monsCount;
 
         for (i = 0; i < monsCount; i++)
         {
@@ -1927,8 +1930,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * (MAX_PER_STAT_IVS) / 255;
-                rand = Random() % range;
-                reallevel = min + rand;
+                reallevel = min + (i / 2) + (Random() % range);
                 CreateMon(&party[i], partyData[i].species, reallevel, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
                 break;
             }
@@ -1941,8 +1943,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * (MAX_PER_STAT_IVS) / 255;
-                rand = Random() % range;
-                reallevel = min + rand;
+                reallevel = min + (i / 2) + (Random() % range);
                 CreateMon(&party[i], partyData[i].species, reallevel, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
@@ -1961,8 +1962,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * (MAX_PER_STAT_IVS) / 255;
-                rand = Random() % range;
-                reallevel = min + rand;
+                reallevel = min + (i / 2) + (Random() % range);
                 CreateMon(&party[i], partyData[i].species, reallevel, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
@@ -1977,8 +1977,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * (MAX_PER_STAT_IVS) / 255;
-                rand = Random() % range;
-                reallevel = min + rand;
+                reallevel = min + (i / 2) + (Random() % range);
                 CreateMon(&party[i], partyData[i].species, reallevel, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);

@@ -40,6 +40,7 @@ void HealPlayerParty(void)
     // restore HP.
     for(i = 0; i < gPlayerPartyCount; i++)
     {
+        // set max iv's
         SetBoxMonData(&gPlayerParty[i].box, MON_DATA_HP_IV, max_iv);
         SetBoxMonData(&gPlayerParty[i].box, MON_DATA_ATK_IV, max_iv);
         SetBoxMonData(&gPlayerParty[i].box, MON_DATA_SPATK_IV, max_iv);
