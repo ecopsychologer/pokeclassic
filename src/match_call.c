@@ -944,15 +944,14 @@ bool32 SelectMatchCallMessage(int trainerId, u8 *str)
 
     // If the player is on the same route as the trainer
     // and they can be rematched, they will always request a battle
-    if (TrainerIsEligibleForRematch(matchCallId)
-     && GetRematchTrainerLocation(matchCallId) == gMapHeader.regionMapSectionId)
+    if (TrainerIsEligibleForRematch(matchCallId) && GetRematchTrainerLocation(matchCallId) == gMapHeader.regionMapSectionId)
     {
         matchCallText = GetSameRouteMatchCallText(matchCallId, str);
     }
     // If the player is not on the same route as the trainer
     // and they can be rematched, there is a random chance for
     // the trainer to request a battle
-    else if (ShouldTrainerRequestBattle(matchCallId))
+    else if (TrainerIsEligibleForRematch(matchCallId))
     {
         matchCallText = GetDifferentRouteMatchCallText(matchCallId, str);
         newRematchRequest = TRUE;
@@ -1306,6 +1305,7 @@ static int GetNumOwnedBadges(void)
 // Whether or not a trainer calling the player from a different route should request a battle
 static bool32 ShouldTrainerRequestBattle(int matchCallId)
 {
+    /*
     int dayCount;
     int otId;
     u16 dewfordRand;
@@ -1327,9 +1327,9 @@ static bool32 ShouldTrainerRequestBattle(int matchCallId)
     {
         if (GetNthRematchTrainerFought(n) == matchCallId)
             return TRUE;
-    }
+    }*/
 
-    return FALSE;
+    return TRUE;
 }
 
 static u16 GetFrontierStreakInfo(u16 facilityId, u32 *topicTextId)

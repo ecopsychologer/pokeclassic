@@ -1334,8 +1334,8 @@ static void CB2_EndRematchBattle(void)
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         RegisterTrainerInMatchCall();
-        SetBattledTrainersFlags();
-        HandleRematchVarsOnBattleEnd();
+        // SetBattledTrainersFlags();
+        // HandleRematchVarsOnBattleEnd();
     }
 }
 
@@ -1569,6 +1569,8 @@ static void SetRematchIdForTrainer(const struct RematchTrainer *table, u32 table
     for (i = 1; i < REMATCHES_COUNT; i++)
     {
         u16 trainerId = table[tableId].trainerIds[i];
+        
+        ClearTrainerFlag(trainerId);
 
         if (trainerId == 0)
             break;
@@ -1594,8 +1596,7 @@ static bool32 UpdateRandomTrainerRematches(const struct RematchTrainer *table, u
                 // Trainer already wants a rematch. Don't bother updating it.
                 ret = TRUE;
             }
-            else if (FlagGet(FLAG_MATCH_CALL_REGISTERED + i)
-             && (Random() % 100) <= 30)  // 31% chance of getting a rematch.
+            else if (FlagGet(FLAG_MATCH_CALL_REGISTERED + i))  // 100% chance of getting a rematch.
             {
                 SetRematchIdForTrainer(table, i);
                 ret = TRUE;
@@ -1790,7 +1791,7 @@ void IncrementRematchStepCounter(void)
 static bool32 IsRematchStepCounterMaxed(void)
 {
     #ifndef FREE_MATCH_CALL
-    if (HasAtLeastFiveBadges() && gSaveBlock1Ptr->trainerRematchStepCounter >= STEP_COUNTER_MAX)
+    if (HasAtLeastFiveBadges())
         return TRUE;
     else
         return FALSE;

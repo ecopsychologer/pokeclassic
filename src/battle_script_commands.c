@@ -4061,14 +4061,12 @@ static void Cmd_getexp(void)
                     }
                     // apply xp curve
                     if (gSaveBlock2Ptr->optionsBattleStyle == 0) {
-                        if ((maxLVL - fixedLVL) <= 2) {
+                        if ((maxLVL - fixedLVL) <= 4) {
                             gBattleMoveDamage = (gBattleMoveDamage * 9) / 10;
-                        } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 1)) {
-                            gBattleMoveDamage = (gBattleMoveDamage * 3) / 10;
+                        } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL)) {
+                            gBattleMoveDamage = (gBattleMoveDamage * 5) / 10;
                         } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 2)) {
                             gBattleMoveDamage = (gBattleMoveDamage * 9) / 10;
-                        } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 3)) {
-                            gBattleMoveDamage = (gBattleMoveDamage * 2);
                         } else {
                             gBattleMoveDamage = gBattleMoveDamage * 3;
                         }
