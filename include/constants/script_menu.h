@@ -125,7 +125,7 @@
 #define MULTI_FOSSIL_DOMEHELIX             116
 #define MULTI_FOSSIL_ALL                   117
 #define MULTI_BATTLE_MODE_2                118
-#define MULTI_UNUSED_119                   119
+#define MULTI_CHANGE_LEVEL                 119
 #define MULTI_UNUSED_120                   120
 #define MULTI_UNUSED_121                   121
 #define MULTI_UNUSED_122           		   122

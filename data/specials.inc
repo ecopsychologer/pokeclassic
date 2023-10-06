@@ -558,4 +558,5 @@ gSpecials::
 	def_special SeafoamIslandsB4F_CurrentDumpsPlayerOnLand
 	def_special ForcePlayerToStartSurfing
 	def_special DoPokemonLeagueLightingEffect
+	def_special ChangeMonLevel
 	

@@ -72,6 +72,58 @@ void HealPlayerParty(void)
     }
 }
 
+void ChangeMonLevel(void)
+{
+    u8 max_iv[1];
+    u8 level[1];
+    u16 species;
+
+    max_iv[0] = MAX_PER_STAT_IVS;
+    if (gSpecialVar_0x8004 != 0xFF) {
+        species = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES, NULL);
+
+        switch(gSpecialVar_Result) {
+            case 0:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL) + 20;
+                break;
+            case 1:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL) + 10;
+                break;
+            case 2:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL) + 5;
+                break;
+            case 3:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL) + 1;
+                break;
+            case 4:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL);
+                break;
+            case 5:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL) - 1;
+                break;
+            case 6:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL) - 5;
+                break;
+            case 7:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL) - 10;
+                break;
+            case 8:
+                level[0] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL) - 20;
+                break;
+            default:
+                break;
+        }
+        // adjust level
+        //if ((level[0] <= 100) && (level[0] > 0)) {
+        SetBoxMonData(&gPlayerParty[gSpecialVar_0x8004].box, MON_DATA_EXP, &gExperienceTables[gBaseStats[species].growthRate][level[0]]);
+
+        CalculateMonStats(&gPlayerParty[gSpecialVar_0x8004]);
+        //}
+        // set max iv's and heal
+        HealPlayerParty();
+    }
+}
+
 u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 unused3)
 {
     u16 nationalDexNum;

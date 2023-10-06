@@ -326,7 +326,6 @@ PkmnLeague_Services_EliteShop::
 	goto_if_lt VAR_TEMP_1, 8, PkmnLeague_Services_MustBeElite
 	message gText_HowMayIServeYou
 	waitmessage
-	goto_if_set FLAG_SYS_GAME_CLEAR, PkmnLeague_Services_EliteShop_PostGameShop
 	goto PkmnLeague_Services_EliteShop_Elite
 	end
 
@@ -337,9 +336,31 @@ PkmnLeague_Services_EliteShop_PostGameShop::
 	end
 
 PkmnLeague_Services_EliteShop_Elite::
-	pokemart PkmnLeague_Services_Mart_EliteShop_Elite
+	msgbox PkmnLeague_Services_Text_LevelWhichMon, MSGBOX_DEFAULT
+	special ChooseMonForMoveRelearner
+	waitstate
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, Common_EventScript_End
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, PkmnLeague_Services_Text_CantLevelEgg
+	multichoice 10, 0, MULTI_CHANGE_LEVEL, FALSE
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, PkmnLeague_Services_EliteShop_Elite_AnotherTime
+	goto_if_eq VAR_RESULT, 4, PkmnLeague_Services_EliteShop_Elite_AnotherTime
+	special ChangeMonLevel
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
+	end
+
+PkmnLeague_Services_Text_LevelWhichMon:
+	.string "Which Pokémon needs training?$"
+
+PkmnLeague_Services_Text_CantLevelEgg:
+	.string "Hunh? There isn't a single person that\n"
+	.string "can level up an Egg.$"
+
+PkmnLeague_Services_EliteShop_Elite_AnotherTime::
+	.string "Ah, alright...\n"
+	.string "Perhaps another time!$"
+	releaseall
 	end
 
 	.align 2

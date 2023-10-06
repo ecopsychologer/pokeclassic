@@ -619,6 +619,19 @@ static const struct MenuAction MultichoiceList_AmberHelix[] =
     {gText_Exit},
 };
 
+static const struct MenuAction MultichoiceList_ChangeLevel[] =
+{
+    {gText_Level20p},
+    {gText_Level10p},
+    {gText_Level5p},
+    {gText_Level1p},
+    {gText_Exit},
+    {gText_Level1},
+    {gText_Level5},
+    {gText_Level10},
+    {gText_Level20},
+};
+
 static const struct MenuAction MultichoiceList_YesNo[] =
 {
     {gText_Yes},
@@ -1007,6 +1020,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_FOSSIL_AMBERHELIX]          = MULTICHOICE(MultichoiceList_AmberHelix),
     [MULTI_FOSSIL_AMBERDOME]           = MULTICHOICE(MultichoiceList_AmberDome),
     [MULTI_BATTLE_MODE_2]              = MULTICHOICE(MultichoiceList_BattleMode2),
+    [MULTI_CHANGE_LEVEL]               = MULTICHOICE(MultichoiceList_ChangeLevel),
 };
 
 const u8 *const gStdStrings[] =
