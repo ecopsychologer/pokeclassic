@@ -2444,6 +2444,30 @@ static const struct SpriteFrameImage sPicTable_Charizard[] = {
     overworld_frame(gObjectEventPic_Charizard, 4, 4, 4),
     overworld_frame(gObjectEventPic_Charizard, 4, 4, 5),
 };
+static const struct SpriteFrameImage sPicTable_Mega_Charizard_X[] = {
+    overworld_frame(gObjectEventPic_Mega_Charizard_X, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Mega_Charizard_X, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Mega_Charizard_X, 4, 4, 2),
+    overworld_frame(gObjectEventPic_Mega_Charizard_X, 4, 4, 3),
+    overworld_frame(gObjectEventPic_Mega_Charizard_X, 4, 4, 4),
+    overworld_frame(gObjectEventPic_Mega_Charizard_X, 4, 4, 5),
+};
+static const struct SpriteFrameImage sPicTable_Mega_Blastoise[] = {
+    overworld_frame(gObjectEventPic_Mega_Blastoise, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Mega_Blastoise, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Mega_Blastoise, 4, 4, 2),
+    overworld_frame(gObjectEventPic_Mega_Blastoise, 4, 4, 3),
+    overworld_frame(gObjectEventPic_Mega_Blastoise, 4, 4, 4),
+    overworld_frame(gObjectEventPic_Mega_Blastoise, 4, 4, 5),
+};
+static const struct SpriteFrameImage sPicTable_Mega_Venusaur[] = {
+    overworld_frame(gObjectEventPic_Mega_Venusaur, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Mega_Venusaur, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Mega_Venusaur, 4, 4, 2),
+    overworld_frame(gObjectEventPic_Mega_Venusaur, 4, 4, 3),
+    overworld_frame(gObjectEventPic_Mega_Venusaur, 4, 4, 4),
+    overworld_frame(gObjectEventPic_Mega_Venusaur, 4, 4, 5),
+};
 static const struct SpriteFrameImage sPicTable_Squirtle[] = {
     overworld_frame(gObjectEventPic_Squirtle, 4, 4, 0),
     overworld_frame(gObjectEventPic_Squirtle, 4, 4, 1),

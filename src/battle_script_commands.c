@@ -4009,7 +4009,8 @@ static void Cmd_getexp(void)
                     if (gBattleStruct->sentInPokes & 1)
                         gBattleMoveDamage = *exp;
                     else
-                        gBattleMoveDamage = 0;
+                        gBattleMoveDamage = *exp;
+                        gBattleMoveDamage = (gBattleMoveDamage * 3) / 4;
 
                     // only give exp share bonus in later gens if the mon wasn't sent out
                     if ((gSaveBlock2Ptr->expShare) && ((gBattleMoveDamage == 0) || (B_SPLIT_EXP < GEN_6)))
@@ -4064,7 +4065,7 @@ static void Cmd_getexp(void)
                         if ((maxLVL - fixedLVL) <= 4) {
                             gBattleMoveDamage = (gBattleMoveDamage * 9) / 10;
                         } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL)) {
-                            gBattleMoveDamage = (gBattleMoveDamage * 5) / 10;
+                            gBattleMoveDamage = (gBattleMoveDamage * 4) / 10;
                         } else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) >= (maxLVL - 2)) {
                             gBattleMoveDamage = (gBattleMoveDamage * 9) / 10;
                         } else {

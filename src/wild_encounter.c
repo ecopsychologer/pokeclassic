@@ -307,11 +307,20 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon)
     {
         u16 ability = GetMonAbility(&gPlayerParty[0]);
         if (ability == ABILITY_HUSTLE || ability == ABILITY_VITAL_SPIRIT || ability == ABILITY_PRESSURE) {
-            if (Random() % 2 == 0)
-                return maxLVL + 7;
+            if (Random() % 2 == 0) {
+                if (maxLVL <= 93)
+                    return maxLVL + 7;
+                else {
+                    return 100;
+                }
+            }
         }
     }
-    return reallevel;
+    if (reallevel <= 93)
+        return reallevel;
+    else {
+        return 100;
+    }
 }
 
 u16 GetCurrentMapWildMonHeaderId(void)
